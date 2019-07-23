@@ -32,7 +32,6 @@ class ApiModule {
         return gsonBuilder.create()
     }
 
-
     /*
      * The method returns the Cache object
      * */
@@ -43,7 +42,6 @@ class ApiModule {
         val httpCacheDirectory = File(application.cacheDir, "http-cache")
         return Cache(httpCacheDirectory, cacheSize)
     }
-
 
     /*
      * The method returns the Okhttp object
@@ -62,7 +60,6 @@ class ApiModule {
         return httpClient.build()
     }
 
-
     /*
      * The method returns the Retrofit object
      * */
@@ -76,12 +73,11 @@ class ApiModule {
             .client(okHttpClient)
             .build()
             .create(CountriesApiService::class.java)
-
     }
 
     /*
- * The method returns the Retrofit object
- * */
+     * The method returns the Retrofit object
+     * */
     @Provides
     @Singleton
     fun provideForecastApiService(gson: Gson, okHttpClient: OkHttpClient): ForecastApiService {
@@ -92,6 +88,5 @@ class ApiModule {
             .client(okHttpClient)
             .build()
             .create(ForecastApiService::class.java)
-
     }
 }

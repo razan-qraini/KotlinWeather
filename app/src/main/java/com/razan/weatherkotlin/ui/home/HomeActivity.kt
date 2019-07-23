@@ -30,10 +30,6 @@ import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable, CountryClickCallback {
 
-    companion object {
-        const val EXTRA_SELECT_COUNTRY_POSITION = "EXTRA_SELECT_COUNTRY_POSITION"
-    }
-
     /*
      * The ViewModelFactory class has a list of ViewModels and will provide
      * the corresponding ViewModel in this activity
@@ -46,10 +42,7 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
 
     // This is our ViewModel class
     lateinit var countriesViewModel: CountriesViewModel
-
     private lateinit var countriesListAdapter: CountriesListAdapter
-
-    private val lastSelectedCountyPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -95,7 +88,6 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
 
             } else {
                 Timber.d(HomeActivity::class.java.simpleName, "Empty list")
-                // TODO: handle error response in the UI
             }
         })
         // Fetch countries list

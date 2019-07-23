@@ -28,18 +28,13 @@ class DailyForecastFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         dailyForecastFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_daily_forecast, container, false)
         dailyForecastFragmentBinding.forecastItem = forecast
-
-        Picasso.get().load(forecast.iconUrl).fit().into(dailyForecastFragmentBinding.weatherIconIv) // TODO GLIDE
-
-
+        Picasso.get().load(forecast.iconUrl).fit().into(dailyForecastFragmentBinding.weatherIconIv)
         return dailyForecastFragmentBinding.root
     }
 
     companion object {
-
         private const val ARG_FORECAST = "forecast"
 
         @JvmStatic

@@ -4,8 +4,6 @@ import java.io.Serializable
 
 data class ForecastData(val countryName: String,
                         val dailyForecastList: List<ForecastUIModel>) {
-    val size: Int
-    get() = dailyForecastList.size
 
     operator fun get(position: Int) = dailyForecastList[position]
 }

@@ -29,8 +29,6 @@ class ForecastDetailsFragment : Fragment(), Injectable {
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: ForecastViewModel
     private lateinit var forecastDetailsFragmentBinding: FragmentForecastDetailsBinding
-
-    //private lateinit var viewPager: ViewPager
     private lateinit var pagerAdapter: ForecastPagerAdapter
 
     companion object {
@@ -47,7 +45,6 @@ class ForecastDetailsFragment : Fragment(), Injectable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         /*
          * We need to call this method in order to inject the
          * ViewModelFactory into this Fragment
@@ -69,13 +66,11 @@ class ForecastDetailsFragment : Fragment(), Injectable {
         savedInstanceState: Bundle?
     ): View? {
         forecastDetailsFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_forecast_details, container, false)
-
         return forecastDetailsFragmentBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         observeViewModel()
     }
 
@@ -84,13 +79,10 @@ class ForecastDetailsFragment : Fragment(), Injectable {
 
         viewModel.responseForecast().observe(this, Observer<ForecastResponse> { forecasts ->
             if (forecasts != null) {
-
                 // Convert response data and pass it to viewPager
                 initViewPager(ForecastDataMapper().convertFromDataModel(forecasts))
-
             } else {
                 Timber.d(ForecastDetailsFragment::class.java.simpleName, "Empty Forecast list")
-                // TODO: handle error response in the UI
             }
         })
         viewModel.getForecastData(latitude, longitude)
@@ -101,5 +93,4 @@ class ForecastDetailsFragment : Fragment(), Injectable {
         viewPager.adapter = pagerAdapter
         tabLayout.setupWithViewPager(viewPager)
     }
-
 }

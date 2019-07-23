@@ -16,15 +16,20 @@ abstract class ViewModelsModule {
 
     /**
      * This method basically says
-     * Inject this object into a map using the @IntoMap annotation,
-     * with the CountriesViewModel.class as key, and a Provider that
-     * will build a CountriesViewModel object
+     * Inject this object into a map using the [IntoMap] annotation,
+     * with the [CountriesViewModel] as key, and a Provider that
+     * will build a [CountriesViewModel] object
      */
     @Binds
     @IntoMap
     @ViewModelKey(CountriesViewModel::class)
     protected abstract fun bindCountriesViewModel(countriesViewModel: CountriesViewModel): ViewModel
 
+    /**
+     * Inject this object into a map using the [IntoMap] annotation,
+     * with the [ForecastViewModel] as key, and a Provider that
+     * will build a [ForecastViewModel] object
+     */
     @Binds
     @IntoMap
     @ViewModelKey(ForecastViewModel::class)

@@ -6,8 +6,6 @@ import io.reactivex.Single
 import retrofit2.http.GET
 
 interface CountriesApiService {
-
     @GET(ENDPOINT_COUNTRY)
     fun getCountries(): Single<List<Country>>
-
 }

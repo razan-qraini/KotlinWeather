@@ -1,16 +1,14 @@
 package com.razan.weatherkotlin.ui.countries.details
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-
+import androidx.fragment.app.Fragment
 import com.razan.weatherkotlin.R
 import com.razan.weatherkotlin.databinding.FragmentCountryDetailsBinding
 import com.razan.weatherkotlin.model.Country
-import com.razan.weatherkotlin.ui.countries.CountriesViewModel
 
 class CountryDetailsFragment : Fragment() {
 
@@ -26,10 +24,6 @@ class CountryDetailsFragment : Fragment() {
 
     private lateinit var selectedCountry: Country
     private lateinit var binding: FragmentCountryDetailsBinding
-    private lateinit var countryItem: Country
-
-//    // Shared View Model between HomeActivity and CountryDetailsFragment
-//    lateinit var countriesViewModel: CountriesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,28 +42,4 @@ class CountryDetailsFragment : Fragment() {
         }
         return binding.root
     }
-
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//
-////        initialiseViewModel()
-//    }
-
-//    private fun initialiseViewModel() {
-//        countriesViewModel = ViewModelProviders.of(this).get(CountriesViewModel::class.java)
-//
-//        countriesViewModel.responseCountriesLiveData().observe(this, Observer<List<Country>> { resource ->
-//            if (resource != null && resource.isNotEmpty()) {
-//                // Update UI
-//                countryItem = resource[selectedCountry]
-//                binding.country = countryItem
-//
-//            } else {
-//                Timber.d("Empty list")
-//                // TODO: handle error response in the UI
-//            }
-//        })
-//        // Fetch countries list
-//        countriesViewModel.getCountriesList()
-//    }
 }

@@ -24,7 +24,7 @@ class ForecastViewModel @Inject constructor(
     // We are using LiveData to update the UI with the data changes.
     private val forecastLiveData = MutableLiveData<ForecastResponse>()
 
-    // Fetch ForecastUIModel data
+    // Fetch Forecast data
     fun getForecastData(lat: Float?, lon: Float?) {
         disposables.add(
             forecastRepository.getForecast(lat, lon, UNITS,
@@ -37,10 +37,8 @@ class ForecastViewModel @Inject constructor(
         )
     }
 
-    // return mutable weather data model
+    // return mutable forecast data model
     fun responseForecast() = forecastLiveData
-
-
 
     override fun onCleared() {
         super.onCleared()

@@ -16,6 +16,4 @@ class ApplicationModuleProvider {
     @Singleton
     fun provideApplicationContext(kotlinWeatherApplication: KotlinWeatherApplication):
             Context = kotlinWeatherApplication
-
-
 }

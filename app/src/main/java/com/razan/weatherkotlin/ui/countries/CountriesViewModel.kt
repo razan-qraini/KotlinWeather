@@ -20,7 +20,7 @@ class CountriesViewModel @Inject constructor(
     private val countriesListLiveData = MutableLiveData<List<Country>>()
 
     /**
-     * Method called by UI to fetch movies list
+     * Method called by UI to fetch countries list
      * */
     fun getCountriesList() {
         disposables.add(
@@ -29,7 +29,7 @@ class CountriesViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { countryList -> responseCountriesLiveData().postValue(countryList) },
-                    { countriesListLiveData.postValue(null) }) // TODO: set the error
+                    { countriesListLiveData.postValue(null) })
         )
     }
 

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.razan.weatherkotlin.databinding.CountryItemBinding
 import com.razan.weatherkotlin.model.Country
 
-class CountriesListAdapter(val callback: CountryClickCallback):
+class CountriesListAdapter(private val callback: CountryClickCallback):
     RecyclerView.Adapter<CountriesListAdapter.CountryViewHolder>()  {
 
     private var countries: MutableList<Country> = mutableListOf()
@@ -22,7 +22,7 @@ class CountriesListAdapter(val callback: CountryClickCallback):
 
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) = holder.bind(countries[position], callback)
 
-    class CountryViewHolder(val binding: CountryItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class CountryViewHolder(private val binding: CountryItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Country, listener: CountryClickCallback) {
             with(binding) {
