@@ -10,17 +10,21 @@
     tools:showIn="@layout/app_bar_drawer"
     android:orientation="vertical">
 
-    <FrameLayout
+    <fragment
         android:id="@+id/countryDetailsContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.5">
-    </FrameLayout>
+        android:layout_weight="0.5"
+        class="com.razan.weatherkotlin.ui.countries.details.CountryDetailsFragment"
+        tools:layout="@layout/fragment_country_details">
+    </fragment>
 
-    <FrameLayout
-        android:id="@+id/forecastContainer"
+    <fragment
+        android:id="@+id/forecastDetailsContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.5">
-    </FrameLayout>
+        android:layout_weight="0.5"
+        class="com.razan.weatherkotlin.ui.forecast.ForecastDetailsFragment"
+        tools:layout="@layout/fragment_forecast_details">
+    </fragment>
 </LinearLayout>

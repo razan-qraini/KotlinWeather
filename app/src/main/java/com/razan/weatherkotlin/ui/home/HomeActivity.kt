@@ -82,9 +82,7 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
         countriesViewModel.responseCountriesLiveData().observe(this, Observer<List<Country>> { countries ->
             if (countries != null && countries.isNotEmpty()) {
                 updateCountriesList(countries)
-
-                addCountryFragment(countries[0])
-                addForecastFragment(countries[0].latlng[0], countries[0].latlng[1])
+                updateFragmentsViews(countries[0])
 
             } else {
                 Timber.d(HomeActivity::class.java.simpleName, "Empty list")
@@ -125,32 +123,21 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
         countriesListAdapter.setItems(countries)
     }
 
-    private fun addCountryFragment(countryModel: Country) {
-
-        val countryDetailsFragment =
-            CountryDetailsFragment.newInstance(countryModel)
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.countryDetailsContainer, countryDetailsFragment, "countryDetails")
-            .addToBackStack(null)
-            .commit()
-    }
-
     override fun onCountryClicked(country: Country) {
-        addCountryFragment(country)
-        addForecastFragment(country.latlng[0], country.latlng[1])
+        updateFragmentsViews(country)
         drawerLayout.closeDrawers()
     }
 
-    private fun addForecastFragment(lat: Float, lon: Float) {
+    private fun updateFragmentsViews(country: Country) {
+        val countryFrag =
+            supportFragmentManager.findFragmentById(R.id.countryDetailsContainer) as CountryDetailsFragment?
+
+        countryFrag?.updateCountryView(country)
 
         val forecastFragment =
-            ForecastDetailsFragment.newInstance(lat, lon)
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.forecastContainer, forecastFragment, "forecastDetails")
-            .addToBackStack(null)
-            .commit()
+            supportFragmentManager.findFragmentById(R.id.forecastDetailsContainer) as ForecastDetailsFragment?
+
+        forecastFragment?.updateForecastView(country)
     }
 
     /*
