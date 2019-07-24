@@ -11,7 +11,8 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ForecastViewModel @Inject constructor(
-    forecastApiService: ForecastApiService) : ViewModel() {
+    forecastApiService: ForecastApiService
+) : ViewModel() {
 
     companion object {
         const val WEATHER_APPID = "1867722b6af87e1d0388e10c5a94be34"
@@ -27,8 +28,10 @@ class ForecastViewModel @Inject constructor(
     // Fetch Forecast data
     fun getForecastData(lat: Float?, lon: Float?) {
         disposables.add(
-            forecastRepository.getForecast(lat, lon, UNITS,
-                WEATHER_APPID)
+            forecastRepository.getForecast(
+                lat, lon, UNITS,
+                WEATHER_APPID
+            )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

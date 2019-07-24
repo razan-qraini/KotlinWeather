@@ -2,7 +2,7 @@ package com.razan.weatherkotlin.model
 
 import java.io.Serializable
 
-data class Country (
+data class Country(
     val name: String,
     val topLevelDomain: List<String>,
     val alpha2Code: String,
@@ -24,5 +24,6 @@ data class Country (
     val currencies: List<String>,
     val languages: List<String>,
     val translations: Translations,
-    val relevance: String): Serializable
+    val relevance: String
+) : Serializable
 

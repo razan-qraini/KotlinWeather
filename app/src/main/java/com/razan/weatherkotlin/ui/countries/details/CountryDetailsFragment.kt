@@ -31,6 +31,7 @@ class CountryDetailsFragment : Fragment() {
             selectedCountry = getSerializable(ARG_COUNTRY_MODEL) as Country
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

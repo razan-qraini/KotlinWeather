@@ -41,7 +41,7 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
     private lateinit var activityDrawerBinding: ActivityHomeBinding
 
     // This is our ViewModel class
-    lateinit var countriesViewModel: CountriesViewModel
+    private lateinit var countriesViewModel: CountriesViewModel
     private lateinit var countriesListAdapter: CountriesListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,11 +137,9 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
     }
 
     override fun onCountryClicked(country: Country) {
-        if (country != null) {
-            addCountryFragment(country)
-            addForecastFragment(country.latlng[0], country.latlng[1])
-            drawerLayout.closeDrawers()
-        }
+        addCountryFragment(country)
+        addForecastFragment(country.latlng[0], country.latlng[1])
+        drawerLayout.closeDrawers()
     }
 
     private fun addForecastFragment(lat: Float, lon: Float) {

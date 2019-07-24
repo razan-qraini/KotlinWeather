@@ -22,8 +22,8 @@ import javax.inject.Inject
 
 class ForecastDetailsFragment : Fragment(), Injectable {
 
-    var latitude: Float? = null
-    var longitude: Float? = null
+    private var latitude: Float? = null
+    private var longitude: Float? = null
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -65,7 +65,8 @@ class ForecastDetailsFragment : Fragment(), Injectable {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        forecastDetailsFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_forecast_details, container, false)
+        forecastDetailsFragmentBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_forecast_details, container, false)
         return forecastDetailsFragmentBinding.root
     }
 

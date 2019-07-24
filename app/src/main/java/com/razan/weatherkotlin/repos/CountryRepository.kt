@@ -7,7 +7,7 @@ import timber.log.Timber
 import javax.inject.Singleton
 
 @Singleton
-class CountryRepository (val countriesApiService: CountriesApiService): Repository {
+class CountryRepository(private val countriesApiService: CountriesApiService) : Repository {
 
     init {
         Timber.d("Injection CountryRepository")

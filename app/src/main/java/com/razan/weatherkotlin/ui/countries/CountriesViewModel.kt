@@ -11,7 +11,8 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class CountriesViewModel @Inject constructor(
-    countriesApiService: CountriesApiService): ViewModel() {
+    countriesApiService: CountriesApiService
+) : ViewModel() {
 
     private val disposables = CompositeDisposable()
     private val countryListRepository: CountryRepository = CountryRepository(countriesApiService)

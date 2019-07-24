@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.razan.weatherkotlin.utils.FLAG_URL
 import com.squareup.picasso.Picasso
 
-object BindingAdapters{
+object BindingAdapters {
     @BindingAdapter("imageUrl")
     @JvmStatic
     fun setImageUrl(view: ImageView, url: String) {
