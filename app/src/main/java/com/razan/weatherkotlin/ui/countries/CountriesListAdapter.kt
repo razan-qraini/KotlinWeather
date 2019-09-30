@@ -20,9 +20,11 @@ class CountriesListAdapter(private val callback: CountryClickCallback) :
 
     override fun getItemCount(): Int = countries.size
 
-    override fun onBindViewHolder(holder: CountryViewHolder, position: Int) = holder.bind(countries[position], callback)
+    override fun onBindViewHolder(holder: CountryViewHolder, position: Int) =
+        holder.bind(countries[position], callback)
 
-    class CountryViewHolder(private val binding: CountryItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class CountryViewHolder(private val binding: CountryItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Country, listener: CountryClickCallback) {
             with(binding) {

@@ -10,7 +10,8 @@ import com.razan.weatherkotlin.mappers.ForecastUIModel as ModelForecast
 class ForecastDataMapper {
 
     fun convertFromDataModel(forecast: ForecastResponse):
-            ForecastData = ForecastData(forecast.city.name, convertForecastListToDomain(forecast.list))
+            ForecastData =
+        ForecastData(forecast.city.name, convertForecastListToDomain(forecast.list))
 
     private fun convertForecastListToDomain(list: List<Forecast>): List<ModelForecast> {
 
@@ -22,12 +23,17 @@ class ForecastDataMapper {
 
     private fun convertForecastItemToDomain(forecast: Forecast): ModelForecast {
         return ModelForecast(
-            convertDate(forecast.dt), forecast.main.pressure, forecast.main.humidity,
-            forecast.main.temp_max.toInt(), forecast.main.temp_min.toInt(), generateIconUrl(forecast.weather[0].icon)
+            convertDate(forecast.dt),
+            forecast.main.pressure,
+            forecast.main.humidity,
+            forecast.main.temp_max.toInt(),
+            forecast.main.temp_min.toInt(),
+            generateIconUrl(forecast.weather[0].icon)
         )
     }
 
-    private fun generateIconUrl(iconCode: String): String = "http://openweathermap.org/img/w/$iconCode.png"
+    private fun generateIconUrl(iconCode: String): String =
+        "http://openweathermap.org/img/w/$iconCode.png"
 
     private fun convertDate(date: Long): String {
         val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())

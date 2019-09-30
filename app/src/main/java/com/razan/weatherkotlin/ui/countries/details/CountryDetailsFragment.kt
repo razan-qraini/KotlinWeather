@@ -18,7 +18,8 @@ class CountryDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_country_details, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_country_details, container, false)
         return binding.root
     }
 

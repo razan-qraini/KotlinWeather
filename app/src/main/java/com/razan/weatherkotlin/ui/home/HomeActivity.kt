@@ -15,9 +15,9 @@ import com.razan.weatherkotlin.R
 import com.razan.weatherkotlin.databinding.ActivityHomeBinding
 import com.razan.weatherkotlin.di.Injectable
 import com.razan.weatherkotlin.model.Country
-import com.razan.weatherkotlin.ui.countries.CountryClickCallback
 import com.razan.weatherkotlin.ui.countries.CountriesListAdapter
 import com.razan.weatherkotlin.ui.countries.CountriesViewModel
+import com.razan.weatherkotlin.ui.countries.CountryClickCallback
 import com.razan.weatherkotlin.ui.countries.details.CountryDetailsFragment
 import com.razan.weatherkotlin.ui.forecast.ForecastDetailsFragment
 import dagger.android.AndroidInjection
@@ -28,7 +28,8 @@ import org.jetbrains.anko.find
 import timber.log.Timber
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable, CountryClickCallback {
+class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable,
+    CountryClickCallback {
 
     /*
      * The ViewModelFactory class has a list of ViewModels and will provide
@@ -77,17 +78,19 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
      * - Observing the LiveData
      * */
     private fun initialiseViewModel() {
-        countriesViewModel = ViewModelProviders.of(this, viewModelFactory).get(CountriesViewModel::class.java)
+        countriesViewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(CountriesViewModel::class.java)
 
-        countriesViewModel.responseCountriesLiveData().observe(this, Observer<List<Country>> { countries ->
-            if (countries != null && countries.isNotEmpty()) {
-                updateCountriesList(countries)
-                updateFragmentsViews(countries[0])
+        countriesViewModel.responseCountriesLiveData()
+            .observe(this, Observer<List<Country>> { countries ->
+                if (countries != null && countries.isNotEmpty()) {
+                    updateCountriesList(countries)
+                    updateFragmentsViews(countries[0])
 
-            } else {
-                Timber.d(HomeActivity::class.java.simpleName, "Empty list")
-            }
-        })
+                } else {
+                    Timber.d(HomeActivity::class.java.simpleName, "Empty list")
+                }
+            })
         // Fetch countries list
         countriesViewModel.getCountriesList()
     }
@@ -103,7 +106,11 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
 
         // DrawerLayout
         val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
         //drawerLayout.openDrawer(Gravity.START)
