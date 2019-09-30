@@ -28,14 +28,15 @@ class DailyForecastFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dailyForecastFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_daily_forecast, container, false)
+        dailyForecastFragmentBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_daily_forecast, container, false)
         dailyForecastFragmentBinding.forecastItem = forecast
         Picasso.get().load(forecast.iconUrl).fit().into(dailyForecastFragmentBinding.weatherIconIv)
         return dailyForecastFragmentBinding.root
     }
 
     companion object {
-        private const val ARG_FORECAST = "forecast"
+        private val ARG_FORECAST = DailyForecastFragment::class.java.name + "_FORECAST_EXTRA"
 
         @JvmStatic
         fun newInstance(forecastUIModel: ForecastUIModel) =

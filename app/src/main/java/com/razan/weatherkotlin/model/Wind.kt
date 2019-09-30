@@ -2,8 +2,8 @@ package com.razan.weatherkotlin.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Wind (
+data class Wind(
 
-	@SerializedName("speed") val speed : Double,
-	@SerializedName("deg") val deg : Double
+    @SerializedName("speed") val speed: Double,
+    @SerializedName("deg") val deg: Double
 )

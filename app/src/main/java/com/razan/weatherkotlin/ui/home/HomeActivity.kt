@@ -15,9 +15,9 @@ import com.razan.weatherkotlin.R
 import com.razan.weatherkotlin.databinding.ActivityHomeBinding
 import com.razan.weatherkotlin.di.Injectable
 import com.razan.weatherkotlin.model.Country
-import com.razan.weatherkotlin.ui.countries.CountryClickCallback
 import com.razan.weatherkotlin.ui.countries.CountriesListAdapter
 import com.razan.weatherkotlin.ui.countries.CountriesViewModel
+import com.razan.weatherkotlin.ui.countries.CountryClickCallback
 import com.razan.weatherkotlin.ui.countries.details.CountryDetailsFragment
 import com.razan.weatherkotlin.ui.forecast.ForecastDetailsFragment
 import dagger.android.AndroidInjection
@@ -28,7 +28,8 @@ import org.jetbrains.anko.find
 import timber.log.Timber
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable, CountryClickCallback {
+class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable,
+    CountryClickCallback {
 
     /*
      * The ViewModelFactory class has a list of ViewModels and will provide
@@ -41,7 +42,7 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
     private lateinit var activityDrawerBinding: ActivityHomeBinding
 
     // This is our ViewModel class
-    lateinit var countriesViewModel: CountriesViewModel
+    private lateinit var countriesViewModel: CountriesViewModel
     private lateinit var countriesListAdapter: CountriesListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,19 +78,19 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
      * - Observing the LiveData
      * */
     private fun initialiseViewModel() {
-        countriesViewModel = ViewModelProviders.of(this, viewModelFactory).get(CountriesViewModel::class.java)
+        countriesViewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(CountriesViewModel::class.java)
 
-        countriesViewModel.responseCountriesLiveData().observe(this, Observer<List<Country>> { countries ->
-            if (countries != null && countries.isNotEmpty()) {
-                updateCountriesList(countries)
+        countriesViewModel.responseCountriesLiveData()
+            .observe(this, Observer<List<Country>> { countries ->
+                if (countries != null && countries.isNotEmpty()) {
+                    updateCountriesList(countries)
+                    updateFragmentsViews(countries[0])
 
-                addCountryFragment(countries[0])
-                addForecastFragment(countries[0].latlng[0], countries[0].latlng[1])
-
-            } else {
-                Timber.d(HomeActivity::class.java.simpleName, "Empty list")
-            }
-        })
+                } else {
+                    Timber.d(HomeActivity::class.java.simpleName, "Empty list")
+                }
+            })
         // Fetch countries list
         countriesViewModel.getCountriesList()
     }
@@ -105,7 +106,11 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
 
         // DrawerLayout
         val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
         //drawerLayout.openDrawer(Gravity.START)
@@ -125,34 +130,21 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector, Injectable
         countriesListAdapter.setItems(countries)
     }
 
-    private fun addCountryFragment(countryModel: Country) {
-
-        val countryDetailsFragment =
-            CountryDetailsFragment.newInstance(countryModel)
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.countryDetailsContainer, countryDetailsFragment, "countryDetails")
-            .addToBackStack(null)
-            .commit()
-    }
-
     override fun onCountryClicked(country: Country) {
-        if (country != null) {
-            addCountryFragment(country)
-            addForecastFragment(country.latlng[0], country.latlng[1])
-            drawerLayout.closeDrawers()
-        }
+        updateFragmentsViews(country)
+        drawerLayout.closeDrawers()
     }
 
-    private fun addForecastFragment(lat: Float, lon: Float) {
+    private fun updateFragmentsViews(country: Country) {
+        val countryFrag =
+            supportFragmentManager.findFragmentById(R.id.countryDetailsContainer) as CountryDetailsFragment?
+
+        countryFrag?.updateCountryView(country)
 
         val forecastFragment =
-            ForecastDetailsFragment.newInstance(lat, lon)
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.forecastContainer, forecastFragment, "forecastDetails")
-            .addToBackStack(null)
-            .commit()
+            supportFragmentManager.findFragmentById(R.id.forecastDetailsContainer) as ForecastDetailsFragment?
+
+        forecastFragment?.updateForecastView(country)
     }
 
     /*

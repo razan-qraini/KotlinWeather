@@ -1,12 +1,12 @@
-package com.razan.weatherkotlin.di.vm;
+package com.razan.weatherkotlin.di.vm
 
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.razan.weatherkotlin.ui.countries.CountriesViewModel
 import com.razan.weatherkotlin.ui.forecast.ForecastViewModel
-import dagger.Binds;
-import dagger.Module;
-import dagger.multibindings.IntoMap;
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoMap
 
 @Module
 abstract class ViewModelsModule {

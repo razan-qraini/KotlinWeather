@@ -2,7 +2,7 @@ package com.razan.weatherkotlin.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Clouds (
+data class Clouds(
 
-	@SerializedName("all") val all : Int
+    @SerializedName("all") val all: Int
 )

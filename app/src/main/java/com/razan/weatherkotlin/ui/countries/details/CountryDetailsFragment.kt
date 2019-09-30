@@ -12,34 +12,19 @@ import com.razan.weatherkotlin.model.Country
 
 class CountryDetailsFragment : Fragment() {
 
-    companion object {
-        const val ARG_COUNTRY_MODEL = "country_model"
-
-        fun newInstance(selectedCountry: Country) = CountryDetailsFragment().apply {
-            arguments = Bundle().apply {
-                putSerializable(ARG_COUNTRY_MODEL, selectedCountry)
-            }
-        }
-    }
-
-    private lateinit var selectedCountry: Country
     private lateinit var binding: FragmentCountryDetailsBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.apply {
-            selectedCountry = getSerializable(ARG_COUNTRY_MODEL) as Country
-        }
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_country_details, container, false)
-        with(binding) {
-            country = selectedCountry
-            countryCode = selectedCountry.alpha2Code
-        }
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_country_details, container, false)
         return binding.root
+    }
+
+    fun updateCountryView(country: Country) {
+        binding.country = country
+        binding.countryCode = country.alpha2Code
     }
 }

@@ -14,6 +14,7 @@ import com.razan.weatherkotlin.databinding.FragmentForecastDetailsBinding
 import com.razan.weatherkotlin.di.Injectable
 import com.razan.weatherkotlin.mappers.ForecastDataMapper
 import com.razan.weatherkotlin.mappers.ForecastData
+import com.razan.weatherkotlin.model.Country
 import com.razan.weatherkotlin.model.ForecastResponse
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_forecast_details.*
@@ -22,26 +23,14 @@ import javax.inject.Inject
 
 class ForecastDetailsFragment : Fragment(), Injectable {
 
-    var latitude: Float? = null
-    var longitude: Float? = null
+    private var latitude: Float? = null
+    private var longitude: Float? = null
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: ForecastViewModel
     private lateinit var forecastDetailsFragmentBinding: FragmentForecastDetailsBinding
     private lateinit var pagerAdapter: ForecastPagerAdapter
-
-    companion object {
-        const val ARG_LAT = "lat"
-        const val ARG_LON = "lon"
-
-        fun newInstance(lat: Float, lon: Float) = ForecastDetailsFragment().apply {
-            arguments = Bundle().apply {
-                putFloat(ARG_LAT, lat)
-                putFloat(ARG_LON, lon)
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,28 +39,15 @@ class ForecastDetailsFragment : Fragment(), Injectable {
          * ViewModelFactory into this Fragment
          * */
         AndroidSupportInjection.inject(this)
-
-        arguments?.apply {
-            if (arguments!!.containsKey(ARG_LAT)) {
-                latitude = arguments!!.getFloat(ARG_LAT)
-            }
-            if (arguments!!.containsKey(ARG_LON)) {
-                longitude = arguments!!.getFloat(ARG_LON)
-            }
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        forecastDetailsFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_forecast_details, container, false)
+        forecastDetailsFragmentBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_forecast_details, container, false)
         return forecastDetailsFragmentBinding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        observeViewModel()
     }
 
     private fun observeViewModel() {
@@ -92,5 +68,12 @@ class ForecastDetailsFragment : Fragment(), Injectable {
         pagerAdapter = ForecastPagerAdapter(childFragmentManager, forecastData.dailyForecastList)
         viewPager.adapter = pagerAdapter
         tabLayout.setupWithViewPager(viewPager)
+    }
+
+    fun updateForecastView(country: Country) {
+        latitude = country.latlng[0]
+        longitude = country.latlng[1]
+
+        observeViewModel()
     }
 }

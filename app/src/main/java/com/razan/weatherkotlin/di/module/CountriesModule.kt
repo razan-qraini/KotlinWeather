@@ -26,7 +26,7 @@ object CountriesModule {
     @Provides
     @Reusable
     @JvmStatic
-    internal fun provideRetrofitInterface() : Retrofit {
+    internal fun provideRetrofitInterface(): Retrofit {
 
         return Retrofit.Builder()
             .baseUrl(COUNTRIES_BASE_URL)
